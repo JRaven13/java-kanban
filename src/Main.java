@@ -28,23 +28,22 @@ public class Main {
         epic2 = taskManager.createEpic(epic2);
         subTask3 = taskManager.createSubTask(subTask3);
 
-        Task update1 = taskManager.getTaskById(task1.getId());
-        update1.setStatus("In_Progress");
-        taskManager.updateTask(update1);
-
-
-
         System.out.println(taskManager.getTaskById(task1.getId()));
         System.out.println(taskManager.getTaskById(task2.getId()));
+        taskManager.taskStatus(1);
+        System.out.println(taskManager.getTaskById(task1.getId()));
 
         System.out.println(taskManager.getAllTasks());
 
         System.out.println(epic1);
-        System.out.println(taskManager.getSubTaskForEpic(2));
+        System.out.println(taskManager.getSubTaskForEpic(3));
+        taskManager.subTaskStatus(4);
+        System.out.println(epic1);
+        taskManager.subTaskStatus(4);
+        taskManager.subTaskStatus(5);
+        taskManager.subTaskStatus(5);
+        System.out.println(epic1);
         System.out.println(taskManager.getSubTaskForEpic(6));
-
-    //    System.out.println(subTask1);
-    //    System.out.println(subTask2);
 
         System.out.println(epic2);
 
