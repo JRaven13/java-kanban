@@ -102,28 +102,29 @@ public class TaskManager {
         return epicStorage.get(id);
     }
 
-    private Epic checkEpicStatus(int id) { //честно не знаю как подругому сделать, так работает
-        Epic epic = epicStorage.get(id);
-        List<SubTask> list = epic.getSubtaskIds();
-        if (epic.getStatus() == "NEW") {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getStatus() != "NEW") {
-                    epic.setStatus("IN_PROGRESS");
-                    updateEpic(epic);
-                }
-            }
-        } else if (epic.getStatus() == "IN_PROGRESS") {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getStatus() != "DONE") {
-                    epic.setStatus("IN_PROGRESS");
-                    updateEpic(epic);
-                    return epic;
-                }
-                epic.setStatus("DONE");
-                updateEpic(epic);
-            }
+    private void checkEpicStatus(int epicId) {
+        Epic epic = epicStorage.get(epicId);
+        List<SubTask> subs = epic.getSubtaskIds();
+        if (subs.isEmpty()) {
+            epic.setStatus("NEW");
+            return;
         }
-        return epic;
+        String status = null;
+        for (int i = 0; i < subs.size(); i++) {
+            int j = subs.get(i).getId();
+            final SubTask subTaskStatus = subTaskStorage.get(j);
+            if (status == null) {
+                status = subTaskStatus.getStatus();
+                continue;
+            }
+            if (status.equals(subTaskStatus.getStatus())
+                    && !status.equals("IN_PROGRESS")) {
+                continue;
+            }
+            epic.setStatus("IN_PROGRESS");
+            return;
+        }
+        epic.setStatus(status);
     }
 
     // Методы для подзадач
