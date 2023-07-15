@@ -1,21 +1,27 @@
+package Manager;
+
 import Tasks.Epic;
 import Tasks.SubTask;
 import Tasks.Task;
+import Tasks.TaskStatus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class TaskManager {
+public class InMemoryTaskManager implements TaskManager {
 
     private int generatedId = 0;
 
     private HashMap<Integer, Task> taskStorage = new HashMap<>();
     private HashMap<Integer, Epic> epicStorage = new HashMap<>();
     private HashMap<Integer, SubTask> subTaskStorage = new HashMap<>();
+
+    private final HistoryManager historyManager = Managers.getHistoryDefault();
     
     // Методы для задач
 
+@Override
     public Task createTask(Task task) {
         int id = generateId();
         task.setId(id);
@@ -23,10 +29,12 @@ public class TaskManager {
         return task;
     }
 
+    @Override
     public ArrayList<Task> getAllTasks() {
         return new ArrayList(taskStorage.values());
     }
 
+    @Override
     public void updateTask(Task task) {
         Task saved = taskStorage.get(task.getId());
         if (saved == null) {
@@ -35,35 +43,38 @@ public class TaskManager {
         taskStorage.put(task.getId(), task);
     }
 
+    @Override
     public void deleteAllTask() {
         taskStorage.clear();
     }
 
+    @Override
     public void deleteTask(int delete) {
         taskStorage.remove(delete);
     }
 
+    @Override
     public Task getTaskById(int id) {
+        historyManager.addTask(taskStorage.get(id));
         return taskStorage.get(id);
     }
-// метод для изменения статуса Задачи, так как у нас конкретные статусы есть,
-// я решил просто преключение последовательным сделать
-// если не так сделал, распишите как лучше сделать =)
-// например через if с передачей номера статуса, типа 1-NEW 2-INPROGRESS 3-DONE?
+
+    @Override
     public void taskStatus(int id) {
         Task change = taskStorage.get(id);
-        if (change.getStatus() == "NEW") {
-            change.setStatus("IN_PROGRESS");
+        if (change.getStatus() == TaskStatus.NEW) {
+            change.setStatus(TaskStatus.IN_PROGRESS);
             updateTask(change);
         }
-        if (change.getStatus() == "IN_PROGRESS") {
-            change.setStatus("DONE");
+        if (change.getStatus() == TaskStatus.IN_PROGRESS) {
+            change.setStatus(TaskStatus.DONE);
             updateTask(change);
         }
     }
     
     // Методы для Эпиков
 
+    @Override
     public Epic createEpic(Epic epic) {
         int id = generateId();
         epic.setId(id);
@@ -71,6 +82,7 @@ public class TaskManager {
         return epic;
     }
 
+    @Override
     public void updateEpic(Epic epic) {
         Epic saved = epicStorage.get(epic.getId());
         if (saved == null) {
@@ -79,6 +91,7 @@ public class TaskManager {
         epicStorage.put(epic.getId(), epic);
     }
 
+    @Override
     public ArrayList<Epic> getAllEpic() {
         return new ArrayList(epicStorage.values());
     }
@@ -88,6 +101,7 @@ public class TaskManager {
         epicStorage.clear();
     }
 
+    @Override
     public void deleteEpic(int id) {
         Epic epic = epicStorage.get(id);
         for (SubTask value : subTaskStorage.values()) {
@@ -98,18 +112,21 @@ public class TaskManager {
         epicStorage.remove(id);
     }
 
+    @Override
     public Task getEpickById(int id) {
+        historyManager.addTask(epicStorage.get(id));
         return epicStorage.get(id);
     }
 
-    private void checkEpicStatus(int epicId) {
+    @Override
+    public void checkEpicStatus(int epicId) {
         Epic epic = epicStorage.get(epicId);
         List<SubTask> subs = epic.getSubtaskIds();
         if (subs.isEmpty()) {
-            epic.setStatus("NEW");
+            epic.setStatus(TaskStatus.NEW);
             return;
         }
-        String status = null;
+        TaskStatus status = null;
         for (int i = 0; i < subs.size(); i++) {
             int j = subs.get(i).getId();
             final SubTask subTaskStatus = subTaskStorage.get(j);
@@ -118,10 +135,10 @@ public class TaskManager {
                 continue;
             }
             if (status.equals(subTaskStatus.getStatus())
-                    && !status.equals("IN_PROGRESS")) {
+                    && !status.equals(TaskStatus.IN_PROGRESS)) {
                 continue;
             }
-            epic.setStatus("IN_PROGRESS");
+            epic.setStatus(TaskStatus.IN_PROGRESS);
             return;
         }
         epic.setStatus(status);
@@ -129,6 +146,7 @@ public class TaskManager {
 
     // Методы для подзадач
 
+    @Override
     public SubTask createSubTask(SubTask subTask) {
         int id = generateId();
         subTask.setId(id);
@@ -142,21 +160,23 @@ public class TaskManager {
         }
     }
 
+    @Override
     public void subTaskStatus(int id) {
         SubTask change = subTaskStorage.get(id);
-        if (change.getStatus() == "NEW") {
-            change.setStatus("IN_PROGRESS");
+        if (change.getStatus() == TaskStatus.NEW) {
+            change.setStatus(TaskStatus.IN_PROGRESS);
             updateSubTask(change);
             checkEpicStatus(change.getEpicId());
             return;
         }
-        if (change.getStatus() == "IN_PROGRESS") {
-            change.setStatus("DONE");
+        if (change.getStatus() == TaskStatus.IN_PROGRESS) {
+            change.setStatus(TaskStatus.DONE);
             updateSubTask(change);
             checkEpicStatus(change.getEpicId());
         }
     }
 
+    @Override
     public void updateSubTask(SubTask subTask) {
         SubTask saved = subTaskStorage.get(subTask.getId());
         if (saved == null) {
@@ -166,14 +186,17 @@ public class TaskManager {
         checkEpicStatus(saved.getEpicId());
     }
 
+    @Override
     public List<SubTask> getSubTaskForEpic(int id) {
         return epicStorage.get(id).getSubtaskIds();
     }
 
+    @Override
     public ArrayList<SubTask> getAllSubTask() {
         return new ArrayList(subTaskStorage.values());
     }
 
+    @Override
     public void deleteSubTask(int id) {
         SubTask subTask = subTaskStorage.get(id);
         Epic epic = epicStorage.get(subTask.getEpicId());
@@ -183,6 +206,7 @@ public class TaskManager {
         checkEpicStatus(subTask.getEpicId());
     }
 
+    @Override
     public void deleteAllSubTask() {
         for (int i = 0; i < epicStorage.size(); i++) {
             Epic epic = epicStorage.get(i);
@@ -192,14 +216,21 @@ public class TaskManager {
         subTaskStorage.clear();
     }
 
+    @Override
     public Task getSubTaskById(int id) {
+        historyManager.addTask(subTaskStorage.get(id));
         return subTaskStorage.get(id);
     }
 
-    // Общий метод на id
-
-    private int generateId() {
+    // Общие методы
+    @Override
+    public int generateId() {
         return ++generatedId;
+    }
+
+    @Override
+    public List<Task> getHistory() {
+    return historyManager.getHistory();
     }
 
 }

@@ -1,14 +1,17 @@
+import Manager.InMemoryTaskManager;
+import Manager.Managers;
+import Manager.TaskManager;
 import Tasks.Epic;
 import Tasks.SubTask;
 import Tasks.Task;
 
-import java.sql.SQLOutput;
+import java.util.List;
 
 public class Main {
 
     public static void main(String[] args) {
 
-        TaskManager taskManager = new TaskManager();
+        TaskManager taskManager = Managers.getDefault();
 
         Task task1 = new Task("Задача №1", "Описание задачи №1");
         Task task2 = new Task("Задача №2", "Описание задачи №2");
@@ -47,6 +50,13 @@ public class Main {
 
         System.out.println(epic2);
 
+        System.out.println(taskManager.getSubTaskById(5));
+        System.out.println(taskManager.getSubTaskById(4));
+        System.out.println(taskManager.getEpickById(3));
+        System.out.println(taskManager.getEpickById(6));
 
+        System.out.println("Пробую список получить");
+
+        System.out.println(taskManager.getHistory());
     }
 }
