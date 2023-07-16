@@ -13,7 +13,8 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public List<Task> getHistory() {
-        return history;
+        List<Task> copyHistory = history;
+        return copyHistory;
     }
 
     @Override
