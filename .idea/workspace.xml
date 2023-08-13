@@ -6,8 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Manager/HistoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/HistoryManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Manager/InMemoryHistoryManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/InMemoryHistoryManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/InMemoryTaskManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

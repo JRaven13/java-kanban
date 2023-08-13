@@ -6,8 +6,8 @@ import java.util.*;
 
 public class InMemoryHistoryManager implements HistoryManager {
 
-    Node first;
-    Node last;
+    private Node first;
+    private Node last;
 
     Map<Integer, Node> map = new HashMap<>();
 
@@ -38,7 +38,7 @@ public class InMemoryHistoryManager implements HistoryManager {
             last.next = node;
             node.prev = last;
             last = node;
-            map.put(map.size()+1, node);
+            map.put(task.getId(), node);
         } else {
             first = node;
             last = node;
@@ -48,8 +48,8 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     @Override
     public void remove(int id) {
-        Node current = map.get(id);
-        map.remove(id);
+        Node current = map.get(id); // тут не понял, ибо тут я получаю задачу которую надо удалить для дальнейшей работы
+        map.remove(id); // здесь она удаляется из мапы
 
         if (current == last && current == first) {
             last = null;
@@ -73,9 +73,9 @@ public class InMemoryHistoryManager implements HistoryManager {
 
     public static class Node {
 
-        Task value;
-        Node next;
-        Node prev;
+        private Task value;
+        private Node next;
+        private Node prev;
 
         public Node(Task value) {
             this.value = value;
