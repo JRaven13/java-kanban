@@ -42,14 +42,13 @@ public class InMemoryHistoryManager implements HistoryManager {
         } else {
             first = node;
             last = node;
-            map.put(1, node);
+            map.put(task.getId(), node);
         }
     }
 
     @Override
     public void remove(int id) {
-        Node current = map.get(id); // тут не понял, ибо тут я получаю задачу которую надо удалить для дальнейшей работы
-        map.remove(id); // здесь она удаляется из мапы
+        Node current = map.remove(id);
 
         if (current == last && current == first) {
             last = null;
