@@ -7,11 +7,14 @@ public class Task {
     protected String name;
     protected String description;
     protected TaskStatus status;
+    protected TypeTask type;
+
 
     public Task(String name, String description) {
         this.name = name;
         this.description = description;
         this.status = TaskStatus.NEW;
+        this.type = TypeTask.TASK;
     }
 
     public Integer getId() {
@@ -70,5 +73,9 @@ public class Task {
     @Override
     public int hashCode() {
         return Objects.hash(id, name, description, status);
+    }
+
+    public TypeTask getType() {
+        return type;
     }
 }

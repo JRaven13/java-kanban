@@ -15,7 +15,6 @@ public class InMemoryHistoryManager implements HistoryManager {
     public List<Task> getHistory() {
         List<Task> result = new ArrayList<>();
         if (first == null) {
-            System.out.println("Список пуст!");
             return result;
         }
         Node current = first;
@@ -32,18 +31,22 @@ public class InMemoryHistoryManager implements HistoryManager {
         if (task == null) {
             return;
         }
+
+        if (map.containsKey(task.getId()) == true) {
+            remove(task.getId());
+        }
+
         Node node = new Node(task);
 
         if (last != null) {
             last.next = node;
             node.prev = last;
-            last = node;
-            map.put(task.getId(), node);
+
         } else {
             first = node;
-            last = node;
-            map.put(task.getId(), node);
         }
+        last = node;
+        map.put(task.getId(), node);
     }
 
     @Override

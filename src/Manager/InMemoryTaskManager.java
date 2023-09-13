@@ -13,15 +13,15 @@ public class InMemoryTaskManager implements TaskManager {
 
     private int generatedId = 0;
 
-    private final HashMap<Integer, Task> taskStorage = new HashMap<>();
-    private final HashMap<Integer, Epic> epicStorage = new HashMap<>();
-    private final HashMap<Integer, SubTask> subTaskStorage = new HashMap<>();
+    protected final HashMap<Integer, Task> taskStorage = new HashMap<>();
+    protected final HashMap<Integer, Epic> epicStorage = new HashMap<>();
+    protected final HashMap<Integer, SubTask> subTaskStorage = new HashMap<>();
 
-    private final HistoryManager historyManager = Managers.getHistoryDefault();
-    
+    protected final HistoryManager historyManager = Managers.getHistoryDefault();
+
     // Методы для задач
 
-@Override
+    @Override
     public Task createTask(Task task) {
         int id = generateId();
         task.setId(id);
@@ -74,7 +74,7 @@ public class InMemoryTaskManager implements TaskManager {
             updateTask(change);
         }
     }
-    
+
     // Методы для Эпиков
 
     @Override
@@ -99,19 +99,22 @@ public class InMemoryTaskManager implements TaskManager {
         return new ArrayList(epicStorage.values());
     }
 
-       public void deleteAllEpic() {
-            for (Epic epic : epicStorage.values()) {
-                deleteEpic(epic.getId());
-            }
+    public void deleteAllEpic() {
+        for (Epic epic : epicStorage.values()) {
+            deleteEpic(epic.getId());
+        }
     }
 
     @Override
     public void deleteEpic(int id) {
+        ArrayList<Integer> subTaskRemove = new ArrayList<>();
         for (SubTask value : subTaskStorage.values()) {
             if (value.getEpicId() == id) {
-                historyManager.remove(value.getId());
-                subTaskStorage.remove(value.getId());
+                subTaskRemove.add(value.getId());
             }
+        }
+        for (Integer i : subTaskRemove) {
+            deleteSubTask(i);
         }
         historyManager.remove(id);
         epicStorage.remove(id);
@@ -239,7 +242,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public List<Task> getHistory() {
-    return historyManager.getHistory();
+        return historyManager.getHistory();
     }
 
 }

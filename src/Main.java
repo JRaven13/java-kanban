@@ -1,3 +1,4 @@
+import Files.FileBackedTasksManager;
 import Manager.InMemoryTaskManager;
 import Manager.Managers;
 import Manager.TaskManager;
@@ -5,6 +6,7 @@ import Tasks.Epic;
 import Tasks.SubTask;
 import Tasks.Task;
 
+import java.io.File;
 import java.util.List;
 
 public class Main {
@@ -13,23 +15,16 @@ public class Main {
 
         TaskManager taskManager = Managers.getDefault();
 
-        Task task1 = new Task("Задача №1", "Описание задачи №1");
-        Task task2 = new Task("Задача №2", "Описание задачи №2");
 
-        Epic epic1 = new Epic("Эпик №1", "Описание эпика №1");
-        SubTask subTask1 = new SubTask("SubTask1", "Priverka", 3);
-        SubTask subTask2 = new SubTask("SubTask2", "Priverka2", 3);
 
-        Epic epic2 = new Epic("Эпик №2", "Описание эпика №2");
-        SubTask subTask3 = new SubTask("SubTask3", "Priverka3", 6);
 
-        task1 = taskManager.createTask(task1);
-        task2 = taskManager.createTask(task2);
-        epic1 = taskManager.createEpic(epic1);
-        subTask1 = taskManager.createSubTask(subTask1);
-        subTask2 = taskManager.createSubTask(subTask2);
-        epic2 = taskManager.createEpic(epic2);
-        subTask3 = taskManager.createSubTask(subTask3);
+        Task task1 = taskManager.createTask(new Task("Задача №1", "Описание задачи №1"));
+        Task task2 = taskManager.createTask(new Task("Задача №2", "Описание задачи №2"));
+        Task epic1 = taskManager.createEpic(new Epic("Эпик №1", "Описание эпика №1"));
+        Task subTask1 = taskManager.createSubTask(new SubTask("SubTask1", "Priverka", 3));
+        Task subTask2 = taskManager.createSubTask(new SubTask("SubTask2", "Priverka2", 3));
+        Task epic2 = taskManager.createEpic(new Epic("Эпик №2", "Описание эпика №2"));
+        Task subTask3 = taskManager.createSubTask(new SubTask("SubTask3", "Priverka3", 6));
 
         System.out.println(taskManager.getTaskById(task1.getId()));
         System.out.println(taskManager.getTaskById(task2.getId()));
@@ -58,5 +53,15 @@ public class Main {
         System.out.println("Пробую список получить");
 
         System.out.println(taskManager.getHistory());
+/*
+        taskManager.deleteTask(2);
+        taskManager.deleteTask(1);
+        taskManager.deleteEpic(3);*/
+
+        System.out.println(taskManager.getHistory());
+
+
     }
+
+
 }
