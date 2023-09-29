@@ -1,6 +1,5 @@
-package Files;
+package Manager;
 
-import Manager.InMemoryTaskManager;
 import Tasks.Epic;
 import Tasks.SubTask;
 import Tasks.Task;
@@ -13,13 +12,18 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import Files.CSVFormatHandler;
+
 
 public class FileBackedTasksManager extends InMemoryTaskManager {
 
+    private final File file;
+
+
+
     public static void main(String[] args) {
-        File file = new File("TaskFile.csv");
-        FileBackedTasksManager fil = new FileBackedTasksManager();
-        fil.loadFromFile(file);
+        FileBackedTasksManager fil = new FileBackedTasksManager("TaskFile.csv");
+        fil.loadFromFile(fil.getFile());
     /*    Task task1 = fil.createTask(new Task("Задача №1", "Описание задачи №1"));
         Task task2 = fil.createTask(new Task("Задача №2", "Описание задачи №2"));
         Task epic1 = fil.createEpic(new Epic("Эпик №1", "Описание эпика №1"));
@@ -37,17 +41,14 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     }
 
-    public FileBackedTasksManager() {
-        super();
-    }
-
-
-
     private static CSVFormatHandler handler = new CSVFormatHandler();
 
+    public FileBackedTasksManager(String fileName) {
+        this.file = new File(fileName);
+    }
 
     public void save() {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("TaskFile.csv"))){
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file.getName()))){
 
             writer.write(handler.getHeader());
             writer.newLine();
@@ -79,7 +80,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
     public FileBackedTasksManager loadFromFile(File file) {
-        FileBackedTasksManager manager = new FileBackedTasksManager();
+        FileBackedTasksManager manager = new FileBackedTasksManager(file.getName());
         String content = readFileContents(file.getName());
         String[] lines = content.split("\r?\n");
         if (lines[1] != null) {     // Проверка на пустой файл
@@ -125,7 +126,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
             } else {
             System.out.println("Файл пуст!");
-            return null;
+            return manager;
         }
         return manager;
     }
@@ -286,6 +287,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
         List<Task> task = super.getHistory();
         save();
         return task;
+    }
+
+    public File getFile() {
+        return file;
     }
 }
 

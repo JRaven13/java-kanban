@@ -10,7 +10,7 @@ public class CSVFormatHandler {
 
     private static final String DELIMETR = ",";
 
-    String toString(Task task) {
+    public String toString(Task task) {
         String result = task.getId() + DELIMETR +
                 task.getType() + DELIMETR +
                 task.getName() + DELIMETR +
@@ -22,7 +22,7 @@ public class CSVFormatHandler {
         return result;
     }
 
-    Task taskFromString(String value) {
+    public Task taskFromString(String value) {
         String[] parts = value.split(",");
         String id = String.valueOf(Integer.parseInt(parts[0]));
         String name = parts[2];
@@ -36,7 +36,7 @@ public class CSVFormatHandler {
         return task;
     }
 
-    Epic epicFromString(String value) {
+    public Epic epicFromString(String value) {
         String[] parts = value.split(",");
         String id = String.valueOf(Integer.parseInt(parts[0]));
         String name = parts[2];
@@ -50,7 +50,7 @@ public class CSVFormatHandler {
         return epic;
     }
 
-    SubTask subTaskFromString(String value) {
+    public SubTask subTaskFromString(String value) {
         String[] parts = value.split(",");
         String id = String.valueOf(Integer.parseInt(parts[0]));
         String name = parts[2];
@@ -65,7 +65,7 @@ public class CSVFormatHandler {
         return subTask;
     }
 
-    String historyToString(HistoryManager manager) {
+    public String historyToString(HistoryManager manager) {
         List<String> result = new ArrayList<>();
 
         for (Task task : manager.getHistory()) {
@@ -74,11 +74,11 @@ public class CSVFormatHandler {
         return String.join(DELIMETR, result);
     }
 
-    List<Integer> historyFromString(String value) {
+    public List<Integer> historyFromString(String value) {
         return null;
     }
 
-    String getHeader() {
+    public String getHeader() {
         return "id,type,name,status,description,epic";
     }
 }

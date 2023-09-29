@@ -7,4 +7,4 @@ id,type,name,status,description,epic
 5,SUBTASK,SubTask2,NEW,Priverka2,3
 7,SUBTASK,SubTask3,NEW,Priverka3,6
 
-1,2
+1,5,4,3,6
