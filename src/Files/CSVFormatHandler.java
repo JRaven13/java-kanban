@@ -29,11 +29,12 @@ public class CSVFormatHandler {
         String status = parts[3];
         String description = parts[4];
 
-        Task task = new Task(name, description);
+    /*    Task task = new Task(name, description);
         task.setId(Integer.parseInt(id));
         task.setDescription(description);
         task.setStatus(TaskStatus.valueOf(status));
-        return task;
+        return task;*/
+        return null;
     }
 
     public Epic epicFromString(String value) {
@@ -43,11 +44,12 @@ public class CSVFormatHandler {
         String status = parts[3];
         String description = parts[4];
 
-        Epic epic = new Epic(name, description);
+    /*    Epic epic = new Epic(name, description);
         epic.setId(Integer.parseInt(id));
         epic.setDescription(description);
         epic.setStatus(TaskStatus.valueOf(status));
-        return epic;
+        return epic;*/
+        return null;
     }
 
     public SubTask subTaskFromString(String value) {
@@ -58,11 +60,12 @@ public class CSVFormatHandler {
         String description = parts[4];
         String epicId = parts[5];
 
-        SubTask subTask = new SubTask(name, description, Integer.parseInt(epicId));
+   /*     SubTask subTask = new SubTask(name, description, Integer.parseInt(epicId));
         subTask.setId(Integer.parseInt(id));
         subTask.setDescription(description);
         subTask.setStatus(TaskStatus.valueOf(status));
-        return subTask;
+        return subTask;*/
+        return null;
     }
 
     public String historyToString(HistoryManager manager) {

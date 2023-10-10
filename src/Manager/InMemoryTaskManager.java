@@ -26,6 +26,7 @@ public class InMemoryTaskManager implements TaskManager {
         int id = generateId();
         task.setId(id);
         taskStorage.put(id, task);
+        task.getEndTime();
         return task;
     }
 
@@ -162,6 +163,7 @@ public class InMemoryTaskManager implements TaskManager {
             return null;
         } else {
             subTaskStorage.put(id, subTask);
+            subTask.getEndTime();
             epicStorage.get(subTask.getEpicId()).addSubtask(subTask);
             checkEpicStatus(subTask.getEpicId());
             return subTask;
@@ -246,3 +248,5 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
 }
+
+

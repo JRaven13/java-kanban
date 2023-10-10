@@ -13,13 +13,13 @@ public class Main {
 
 
 
-        Task task1 = taskManager.createTask(new Task("Задача №1", "Описание задачи №1"));
-        Task task2 = taskManager.createTask(new Task("Задача №2", "Описание задачи №2"));
-        Task epic1 = taskManager.createEpic(new Epic("Эпик №1", "Описание эпика №1"));
-        Task subTask1 = taskManager.createSubTask(new SubTask("SubTask1", "Priverka", 3));
-        Task subTask2 = taskManager.createSubTask(new SubTask("SubTask2", "Priverka2", 3));
-        Task epic2 = taskManager.createEpic(new Epic("Эпик №2", "Описание эпика №2"));
-        Task subTask3 = taskManager.createSubTask(new SubTask("SubTask3", "Priverka3", 6));
+        Task task1 = taskManager.createTask(new Task("Задача №1", "Описание задачи №1", "15:00 10.10.2023", 30));
+        Task task2 = taskManager.createTask(new Task("Задача №2", "Описание задачи №2", "15:30 10.10.2023", 45));
+        Task epic1 = taskManager.createEpic(new Epic("Эпик №1", "Описание эпика №1","17:00 10.10.2023", 60));
+        Task subTask1 = taskManager.createSubTask(new SubTask("SubTask1", "Priverka","17:00 10.10.2023", 90, 3));
+        Task subTask2 = taskManager.createSubTask(new SubTask("SubTask2", "Priverka2","16:00 10.10.2023", 60, 3));
+        Task epic2 = taskManager.createEpic(new Epic("Эпик №2", "Описание эпика №2","17:00 10.10.2023", 60));
+        Task subTask3 = taskManager.createSubTask(new SubTask("SubTask3", "Priverka3","18:30 10.10.2023", 30, 6));
 
         System.out.println(taskManager.getTaskById(task1.getId()));
         System.out.println(taskManager.getTaskById(task2.getId()));

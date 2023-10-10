@@ -1,5 +1,10 @@
 package Tasks;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Objects;
+
+import static java.time.LocalDateTime.parse;
 
 public class Task {
 
@@ -8,13 +13,22 @@ public class Task {
     protected String description;
     protected TaskStatus status;
     protected TypeTask type;
+    protected LocalDateTime startTime;
+    protected LocalDateTime endTime;
+    protected Duration duration;
+    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm dd.MM.yyyy");
 
-
-    public Task(String name, String description) {
+    public Task(String name, String description, String startTime, Integer duration) {
         this.name = name;
         this.description = description;
         this.status = TaskStatus.NEW;
         this.type = TypeTask.TASK;
+        this.startTime = parse(startTime, formatter);
+        this.duration = Duration.ofMinutes(duration);
+    }
+
+    public void getEndTime() {
+        this.endTime = startTime.plusMinutes(duration.toMinutes());
     }
 
     public Integer getId() {
@@ -51,12 +65,16 @@ public class Task {
 
     @Override
     public String toString() {
-        return "Task{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", status='" + status + '\'' +
-                '}';
+        return String.format("Task %d: %s, %s. (%s) \n " +
+                "Начать: %s \n " +
+                "Время на выполнение: %s \n " +
+                "Закончить: %s", id,
+                name,
+                description,
+                status,
+                startTime.format(formatter),
+                duration.toMinutes(),
+                endTime.format(formatter));
     }
 
     @Override
