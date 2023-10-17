@@ -21,7 +21,11 @@ public class Main {
         Task epic2 = taskManager.createEpic(new Epic("Эпик №2", "Описание эпика №2","17:00 10.10.2023", 60));
         Task subTask3 = taskManager.createSubTask(new SubTask("SubTask3", "Priverka3","18:30 10.10.2023", 30, 6));
 
-        System.out.println(taskManager.getTaskById(task1.getId()));
+
+        System.out.println(epic1);
+
+
+    /*    System.out.println(taskManager.getTaskById(task1.getId()));
         System.out.println(taskManager.getTaskById(task2.getId()));
         taskManager.taskStatus(1);
         System.out.println(taskManager.getTaskById(task1.getId()));
@@ -48,12 +52,12 @@ public class Main {
         System.out.println("Пробую список получить");
 
         System.out.println(taskManager.getHistory());
-/*
+
         taskManager.deleteTask(2);
         taskManager.deleteTask(1);
-        taskManager.deleteEpic(3);*/
+        taskManager.deleteEpic(3);
 
-        System.out.println(taskManager.getHistory());
+        System.out.println(taskManager.getHistory());*/
 
 
     }

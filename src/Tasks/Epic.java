@@ -5,47 +5,23 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.time.LocalDateTime.parse;
+
 public class Epic extends Task {
 
     public Epic(String name, String description, String startTime, Integer duration) {
         super(name, description, startTime, duration);
         this.subtaskIds = new ArrayList<>();
         this.type = TypeTask.EPIC;
-        getDurationSubTask();
+        this.startTime = parse(startTime, formatter);
+        this.duration = Duration.ofMinutes(duration);
     }
 
     private List<SubTask> subtaskIds;
 
-    @Override
-    public void getEndTime() {
-        LocalDateTime end = this.endTime;
-        for (SubTask dur : subtaskIds){
-            end = dur.endTime;
-            if (end.isAfter(dur.endTime)) {
-                end = dur.endTime;
-            }
-        }
-        this.endTime = end;
-    }
 
-    public void getStartTime() {
-        LocalDateTime start = this.startTime;
-        for (SubTask dur : subtaskIds){
-            start = dur.startTime;
-            if (start.isBefore(dur.startTime)) {
-                start = dur.startTime;
-            }
-        }
-        this.startTime = start;
-    }
 
-    public void getDurationSubTask() {
-        for (SubTask dur : subtaskIds){
-            this.duration = this.duration.plusMinutes(dur.duration.toMinutes());
-        }
-    }
-
-    public List<SubTask> getSubtaskIds() {
+    public List<SubTask> getSubTaskIds() {
         return subtaskIds;
     }
 
@@ -53,9 +29,7 @@ public class Epic extends Task {
         this.subtaskIds = subtaskIds;
     }
     public void addSubtask(SubTask subTask){
-        this.subtaskIds.add(subTask);
-        getStartTime();
-        getEndTime();
+        subtaskIds.add(subTask);
     }
 
     @Override

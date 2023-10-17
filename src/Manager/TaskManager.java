@@ -17,6 +17,8 @@ public interface TaskManager {
 
     void updateTask(Task task);
 
+    void setEpicTime(int id);
+
     void deleteAllTask();
 
     void deleteTask(int delete);
@@ -65,4 +67,7 @@ public interface TaskManager {
 
     List<Task> getHistory();
 
+    void setGeneratedId(int generatedId);
+
+    List<Task> getPrioritizedTasks();
 }

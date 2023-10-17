@@ -4,10 +4,7 @@ import Tasks.Epic;
 import Tasks.SubTask;
 import Tasks.Task;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
+import java.io.*;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -22,29 +19,25 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
     public static void main(String[] args) {
-        FileBackedTasksManager fil = new FileBackedTasksManager("TaskFile.csv");
-        fil.loadFromFile(fil.getFile());
-    /*    Task task1 = fil.createTask(new Task("Задача №1", "Описание задачи №1"));
-        Task task2 = fil.createTask(new Task("Задача №2", "Описание задачи №2"));
-        Task epic1 = fil.createEpic(new Epic("Эпик №1", "Описание эпика №1"));
-        Task subTask1 = fil.createSubTask(new SubTask("SubTask1", "Priverka", 3));
-        Task subTask2 = fil.createSubTask(new SubTask("SubTask2", "Priverka2", 3));
-        Task epic2 = fil.createEpic(new Epic("Эпик №2", "Описание эпика №2"));
-        Task subTask3 = fil.createSubTask(new SubTask("SubTask3", "Priverka3", 6));*/
+        FileBackedTasksManager fil = new FileBackedTasksManager();
 
-        System.out.println(fil.getHistory());
+     /*   Task task1 = fil.createTask(new Task("Задача №1", "Описание задачи №1", "15:00 10.10.2023", 30));
+        Task task2 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "15:30 10.10.2023", 45));
+        Task task3 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "17:30 10.10.2023", 45));
+        Task task4 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "19:30 10.10.2023", 45));
 
-        System.out.println(fil.getSubTaskById(5));
-        System.out.println(fil.getSubTaskById(4));
-        System.out.println(fil.getEpickById(3));
-        System.out.println(fil.getEpickById(6));
+        fil.getTaskById(1);
+        fil.getTaskById(3);*/
 
+             FileBackedTasksManager files = fil.loadFromFile();
+            System.out.println(files.getAllTasks());
+        Task task5 = files.createTask(new Task("Задача №5", "Описание задачи №2", "19:30 10.10.2023", 45));
     }
 
     private static CSVFormatHandler handler = new CSVFormatHandler();
 
-    public FileBackedTasksManager(String fileName) {
-        this.file = new File(fileName);
+    public FileBackedTasksManager() {
+        this.file = new File("file.csv");
     }
 
     public void save() {
@@ -77,10 +70,81 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     }
 
+    public FileBackedTasksManager loadFromFile() {
+        FileBackedTasksManager manager = new FileBackedTasksManager();
+        ArrayList<String> lines = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("file.csv"));
+            String content = reader.readLine();
+            while (reader.ready()) {
+                lines.add(content);
+                content = reader.readLine();
+            }
+            reader.close();
+            lines.add(content);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            int maxId = 0;
+            for (int i = 1; i < (lines.size() - 2); i++) {
+                String[] parts = lines.get(i).split(",");
+                if (parts[1].equals("TASK")) {
+                    Task task = handler.taskFromString(lines.get(i));
+                    manager.taskStorage.put(task.getId(), task);
+                    if (maxId < task.getId()) {
+                        maxId = task.getId();
+                    }
+                }
+                if (parts[1].equals("EPIC")) {
+                    Epic epic = handler.epicFromString(lines.get(i));
+                    manager.epicStorage.put(epic.getId(), epic);
+                    if (maxId < epic.getId()) {
+                        maxId = epic.getId();
+                    }
+                }
+                if (parts[1].equals("SUBTASK")) {
+                    SubTask subTask = handler.subTaskFromString(lines.get(i));
+                    int ide = subTask.getEpicId();
+                    manager.subTaskStorage.put(subTask.getId(), subTask);
+                    if (manager.epicStorage.containsKey(ide)) {
+                        Epic epic = manager.epicStorage.get(ide);
+                        epic.addSubtask(subTask);
+                        if (maxId < epic.getId()) {
+                            maxId = epic.getId();
+                        }
+                    } else {
+                        System.out.println("Файл повреждён! Не возможно найти Эпик!");
+                        break;
+                    }
+                }
+            }
+            manager.setGeneratedId(maxId);
+            int lineWithHistory = lines.size() - 1;
+            String[] ids = lines.get(lineWithHistory).split(",");
+            boolean checkHistory = lines.get(lineWithHistory).isEmpty();
+            if (!checkHistory) {
+                for (String id : ids) {
+                    if (manager.taskStorage.containsKey(Integer.parseInt(id))) {
+                        manager.getHistoryManager().addTask(manager.taskStorage.get(Integer.parseInt(id)));
+                    }
+                    if (manager.epicStorage.containsKey(Integer.parseInt(id))) {
+                        manager.getHistoryManager().addTask(manager.epicStorage.get(Integer.parseInt(id)));
+                    }
+                    if (manager.subTaskStorage.containsKey(Integer.parseInt(id))) {
+                        manager.getHistoryManager().addTask(manager.subTaskStorage.get(Integer.parseInt(id)));
+                    }
+                }
+            }
+            return manager;
+        } catch (IndexOutOfBoundsException | NullPointerException e) {
+            return manager;
+        }
+    }
 
 
-    public FileBackedTasksManager loadFromFile(File file) {
-        FileBackedTasksManager manager = new FileBackedTasksManager(file.getName());
+   /* public FileBackedTasksManager loadFromFile(File file) {
+        FileBackedTasksManager manager = new FileBackedTasksManager();
         String content = readFileContents(file.getName());
         String[] lines = content.split("\r?\n");
         if (lines[1] != null) {     // Проверка на пустой файл
@@ -129,7 +193,7 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             return manager;
         }
         return manager;
-    }
+    }*/
 
     public String readFileContents(String file) {
         try {

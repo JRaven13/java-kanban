@@ -4,7 +4,22 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="Я сделяль вроде" />
+    <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="Я сделяль вроде">
+      <change afterPath="$PROJECT_DIR$/src/Test/Manager/InMemoryTaskManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Test/Manager/TaskManagerTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Test/ghf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TaskFile.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Files/CSVFormatHandler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Files/CSVFormatHandler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/FileBackedTasksManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/InMemoryTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/Managers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/Managers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/TaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasks/Epic.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Epic.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasks/SubTask.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/SubTask.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Task.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -72,20 +87,7 @@
       <recent name="Tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
-    <configuration name="FileBackedTasksManager" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="Manager.FileBackedTasksManager" />
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Test.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+  <component name="RunManager" selected="JUnit.InMemoryTaskManagerTest">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="java-kanban" />
@@ -93,9 +95,92 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="InMemoryTaskManagerTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Manager" />
+      <option name="MAIN_CLASS_NAME" value="Manager.InMemoryTaskManagerTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InMemoryTaskManagerTest.getHistory" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Manager" />
+      <option name="MAIN_CLASS_NAME" value="Manager.InMemoryTaskManagerTest" />
+      <option name="METHOD_NAME" value="getHistory" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InMemoryTaskManagerTest.getSubTaskForEpic" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Manager" />
+      <option name="MAIN_CLASS_NAME" value="Manager.InMemoryTaskManagerTest" />
+      <option name="METHOD_NAME" value="getSubTaskForEpic" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InMemoryTaskManagerTest.getSubTaskForEpicMinusOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Manager" />
+      <option name="MAIN_CLASS_NAME" value="Manager.InMemoryTaskManagerTest" />
+      <option name="METHOD_NAME" value="getSubTaskForEpicMinusOne" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="InMemoryTaskManagerTest.getSubTaskForEpicNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Manager" />
+      <option name="MAIN_CLASS_NAME" value="Manager.InMemoryTaskManagerTest" />
+      <option name="METHOD_NAME" value="getSubTaskForEpicNull" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.FileBackedTasksManager" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest.getHistory" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest.getSubTaskForEpicNull" />
       </list>
     </recent_temporary>
   </component>
@@ -142,5 +227,10 @@
         </breakpoint>
       </breakpoints>
     </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Main_java$InMemoryTaskManagerTest.ic" NAME="InMemoryTaskManagerTest Coverage Results" MODIFIED="1697540003446" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>Manager.*</FILTER>
+    </SUITE>
   </component>
 </project>
