@@ -19,22 +19,26 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
 
     public static void main(String[] args) {
-        FileBackedTasksManager fil = new FileBackedTasksManager();
-
-     /*   Task task1 = fil.createTask(new Task("Задача №1", "Описание задачи №1", "15:00 10.10.2023", 30));
-        Task task2 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "15:30 10.10.2023", 45));
-        Task task3 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "17:30 10.10.2023", 45));
-        Task task4 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "19:30 10.10.2023", 45));
-
-        fil.getTaskById(1);
-        fil.getTaskById(3);*/
-
-             FileBackedTasksManager files = fil.loadFromFile();
-            System.out.println(files.getAllTasks());
-        Task task5 = files.createTask(new Task("Задача №5", "Описание задачи №2", "19:30 10.10.2023", 45));
+//        FileBackedTasksManager fil = new FileBackedTasksManager();
+//
+//     /*   Task task1 = fil.createTask(new Task("Задача №1", "Описание задачи №1", "15:00 10.10.2023", 30));
+//        Task task2 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "15:30 10.10.2023", 45));
+//        Task task3 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "17:30 10.10.2023", 45));
+//        Task task4 = fil.createTask(new Task("Задача №2", "Описание задачи №2", "19:30 10.10.2023", 45));
+//
+//        fil.getTaskById(1);
+//        fil.getTaskById(3);*/
+//
+//             FileBackedTasksManager files = fil.loadFromFile(file);
+//            System.out.println(files.getAllTasks());
+//        Task task5 = files.createTask(new Task("Задача №5", "Описание задачи №2", "19:30 10.10.2023", 45));
     }
 
     private static CSVFormatHandler handler = new CSVFormatHandler();
+
+    public FileBackedTasksManager(File file) {
+        this.file = file;
+    }
 
     public FileBackedTasksManager() {
         this.file = new File("file.csv");
@@ -62,7 +66,10 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             }
 
             writer.newLine();
-            writer.write(handler.historyToString(historyManager));
+            if (handler.historyToString(getHistoryManager()).isEmpty()){
+                writer.newLine();
+            } else
+                writer.write(handler.historyToString(getHistoryManager()));
 
         } catch (IOException exception) {
             throw new IllegalArgumentException("Невозможно прочитать файл!");
@@ -70,11 +77,11 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
 
     }
 
-    public FileBackedTasksManager loadFromFile() {
-        FileBackedTasksManager manager = new FileBackedTasksManager();
+    public FileBackedTasksManager loadFromFile(File file) {
+        FileBackedTasksManager manager = new FileBackedTasksManager(file);
         ArrayList<String> lines = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("file.csv"));
+            BufferedReader reader = new BufferedReader(new FileReader(file));
             String content = reader.readLine();
             while (reader.ready()) {
                 lines.add(content);
@@ -141,59 +148,6 @@ public class FileBackedTasksManager extends InMemoryTaskManager {
             return manager;
         }
     }
-
-
-   /* public FileBackedTasksManager loadFromFile(File file) {
-        FileBackedTasksManager manager = new FileBackedTasksManager();
-        String content = readFileContents(file.getName());
-        String[] lines = content.split("\r?\n");
-        if (lines[1] != null) {     // Проверка на пустой файл
-            for (int i = 1; i < (lines.length - 2); i++) {
-                String[] parts = lines[i].split(",");
-                if (parts[1].equals("TASK")) {
-                    Task task = handler.taskFromString(lines[i]);
-                    taskStorage.put(task.getId(), task);
-                }
-                if (parts[1].equals("EPIC")) {
-                    Epic epic = handler.epicFromString(lines[i]);
-                    epicStorage.put(epic.getId(), epic);
-                }
-                if (parts[1].equals("SUBTASK")) {
-                    SubTask subTask = handler.subTaskFromString(lines[i]);
-                    int ide = subTask.getEpicId();
-                    subTaskStorage.put(subTask.getId(), subTask);
-                    if (epicStorage.containsKey(ide)) {
-                        Epic epic = epicStorage.get(ide);
-                        epic.addSubtask(subTask);
-                    } else {
-                        System.out.println("Файл повреждён! Не возможно найти Эпик!");
-                        break;
-                    }
-                }
-            }
-                    String[] ids = lines[lines.length-1].split(",");
-                    for (int j = 0; j < ids.length; j++) {
-                        if (taskStorage.containsKey(j)) {
-                            Task task = taskStorage.get(j);
-                            historyManager.addTask(task);
-                        }
-                        if (epicStorage.containsKey(j)) {
-                            Task task = epicStorage.get(j);
-                            historyManager.addTask(task);
-                        }
-                        if (subTaskStorage.containsKey(j)) {
-                            Task task = subTaskStorage.get(j);
-                            historyManager.addTask(task);
-                        }
-                    }
-
-
-            } else {
-            System.out.println("Файл пуст!");
-            return manager;
-        }
-        return manager;
-    }*/
 
     public String readFileContents(String file) {
         try {
