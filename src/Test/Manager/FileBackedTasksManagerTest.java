@@ -1,25 +1,16 @@
 package Manager;
-
-
 import Tasks.Epic;
 import Tasks.Task;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-
-
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-
 import java.util.Collections;
-
-
-
 import static org.junit.jupiter.api.Assertions.*;
-
 
 public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksManager> {
 
@@ -62,9 +53,9 @@ public class FileBackedTasksManagerTest extends TaskManagerTest<FileBackedTasksM
     public void saveAndLoadEmptyTasksEpicsSubtasksTest() {
         FileBackedTasksManager fileManager = new FileBackedTasksManager(file);
         FileBackedTasksManager newManager = fileManager.loadFromFile(file);
-        assertEquals(Collections.EMPTY_LIST, newManager.getAllTasks());
-        assertEquals(Collections.EMPTY_LIST, newManager.getAllEpic());
-        assertEquals(Collections.EMPTY_LIST, newManager.getAllSubTask());
+        assertNull(newManager.getAllTasks());
+        assertNull(newManager.getAllEpic());
+        assertNull(newManager.getAllSubTask());
     }
 
     @Test

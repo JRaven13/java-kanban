@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="Я медленный =)">
-      <change afterPath="$PROJECT_DIR$/src/Test/Manager/FileBackedTasksManagerTest.java" afterDir="false" />
+    <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="Я медленный =(">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Manager/FileBackedTasksManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/FileBackedTasksManager.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Manager/Managers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/Managers.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Tasks/Task.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Tasks/Task.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Manager/FileBackedTasksManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Manager/FileBackedTasksManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Manager/InMemoryTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Manager/InMemoryTaskManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -101,6 +99,22 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="FileBackedTasksManagerTest.saveAndLoadEmptyHistoryTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="java-kanban" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="Manager.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="Manager" />
+      <option name="MAIN_CLASS_NAME" value="Manager.FileBackedTasksManagerTest" />
+      <option name="METHOD_NAME" value="saveAndLoadEmptyHistoryTest" />
+      <option name="TEST_OBJECT" value="method" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration name="FileBackedTasksManagerTest.saveAndLoadTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <extension name="coverage">
@@ -132,22 +146,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InMemoryTaskManagerTest.getSubTaskForEpicMinusOne" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="java-kanban" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="Manager.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="Manager" />
-      <option name="MAIN_CLASS_NAME" value="Manager.InMemoryTaskManagerTest" />
-      <option name="METHOD_NAME" value="getSubTaskForEpicMinusOne" />
-      <option name="TEST_OBJECT" value="method" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="InMemoryTaskManagerTest.getSubTaskForEpicNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <extension name="coverage">
@@ -167,8 +165,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="JUnit.FileBackedTasksManagerTest" />
+        <item itemvalue="JUnit.FileBackedTasksManagerTest.saveAndLoadEmptyHistoryTest" />
         <item itemvalue="JUnit.FileBackedTasksManagerTest.saveAndLoadTest" />
-        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
         <item itemvalue="JUnit.InMemoryTaskManagerTest" />
         <item itemvalue="JUnit.InMemoryTaskManagerTest" />
       </list>
@@ -212,7 +210,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697542361432</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Я медленный =(">
+      <created>1697616273612</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1697616273612</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -221,7 +226,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Я сделяль вроде" />
     <MESSAGE value="Я медленный =)" />
-    <option name="LAST_COMMIT_MESSAGE" value="Я медленный =)" />
+    <MESSAGE value="Я медленный =(" />
+    <option name="LAST_COMMIT_MESSAGE" value="Я медленный =(" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
