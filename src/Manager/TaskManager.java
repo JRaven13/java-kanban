@@ -70,4 +70,6 @@ public interface TaskManager {
     void setGeneratedId(int generatedId);
 
     List<Task> getPrioritizedTasks();
+
+    boolean interSection(Task task);
 }

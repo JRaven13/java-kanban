@@ -4,10 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="Я медленный =(">
+    <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="Я медленный">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/Manager/FileBackedTasksManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Manager/FileBackedTasksManagerTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Test/Manager/InMemoryTaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Manager/InMemoryTaskManagerTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/InMemoryTaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Manager/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/TaskManager.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -217,7 +217,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697616273612</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="Я медленный">
+      <created>1697616759410</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1697616759410</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -227,7 +234,8 @@
     <MESSAGE value="Я сделяль вроде" />
     <MESSAGE value="Я медленный =)" />
     <MESSAGE value="Я медленный =(" />
-    <option name="LAST_COMMIT_MESSAGE" value="Я медленный =(" />
+    <MESSAGE value="Я медленный" />
+    <option name="LAST_COMMIT_MESSAGE" value="Я медленный" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

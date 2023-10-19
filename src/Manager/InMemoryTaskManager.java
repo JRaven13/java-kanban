@@ -36,11 +36,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task createTask(Task task) {
-        if (task != null && !this.taskStorage.containsKey(task.getId())) {
-            task.setId(generateId());
-            this.taskStorage.put(task.getId(), task);
-        } else {
-            return null;
+        if (!interSection(task)) {
+            if (task != null && !this.taskStorage.containsKey(task.getId())) {
+                task.setId(generateId());
+                this.taskStorage.put(task.getId(), task);
+            } else {
+                return null;
+            }
         }
         return task;
     }
@@ -203,18 +205,20 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public SubTask createSubTask(SubTask subTask) {
-        if (subTask != null && !this.subTaskStorage.containsKey(subTask.getId())) {
-            subTask.setId(generateId());
-            this.subTaskStorage.put(subTask.getId(), subTask);
+        if (!interSection(subTask)) {
+            if (subTask != null && !this.subTaskStorage.containsKey(subTask.getId())) {
+                subTask.setId(generateId());
+                this.subTaskStorage.put(subTask.getId(), subTask);
 
-            Epic epic = epicStorage.get(subTask.getEpicId());
-            if (epic != null) {
-                this.epicStorage.get(subTask.getEpicId()).addSubtask(subTask);
-                checkEpicStatus(subTask.getEpicId());
-                setEpicTime(subTask.getEpicId());
+                Epic epic = epicStorage.get(subTask.getEpicId());
+                if (epic != null) {
+                    this.epicStorage.get(subTask.getEpicId()).addSubtask(subTask);
+                    checkEpicStatus(subTask.getEpicId());
+                    setEpicTime(subTask.getEpicId());
+                }
+            } else {
+                return null;
             }
-        } else {
-            return null;
         }
         return subTask;
     }
@@ -309,11 +313,25 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
+    public boolean interSection(Task task) {
+        List<Task> prioritet = getPrioritizedTasks();
+        boolean isInterSection = false;
+        for (Task data : prioritet) {
+            if (task.getStartTime().isBefore(data.getStartTime()) && task.getStartTime().isAfter(data.getEndTime())) {
+                isInterSection = false;
+            }
+            else {
+                isInterSection = true;
+            }
+        }
+        return isInterSection;
+    }
+
+    @Override
     public List<Task> getPrioritizedTasks() {
         List<Task> allTasks = new ArrayList<>();
         allTasks.addAll(this.taskStorage.values());
         allTasks.addAll(this.subTaskStorage.values());
-        allTasks.addAll(this.epicStorage.values());
         allTasks.sort(Comparator.comparing(Task::getStartTime));
         return allTasks;
     }
