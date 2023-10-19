@@ -386,4 +386,25 @@ public abstract class TaskManagerTest<T extends TaskManager> {
         assertTrue(manager.getHistory().isEmpty());
     }
 
+    @Test
+    void interSection() {
+        Task task1 = manager.createTask(new Task("Задача №1", "Описание задачи", "10:00 10.10.2023", 60));
+        Task task2 = manager.createTask(new Task("Задача №2", "Описание задачи", "09:30 10.10.2023", 60));
+        Task task3 = manager.createTask(new Task("Задача №3", "Описание задачи", "10:30 10.10.2023", 60));
+        Task task4 = manager.createTask(new Task("Задача №4", "Описание задачи", "10:10 10.10.2023", 40));
+        Task task5 = manager.createTask(new Task("Задача №5", "Описание задачи", "09:30 10.10.2023", 120));
+        Task task6 = manager.createTask(new Task("Задача №6", "Описание задачи", "10:00 10.10.2023", 60));
+        Task task7 = manager.createTask(new Task("Задача №7", "Описание задачи", "09:00 10.10.2023", 30));
+        Task task8 = manager.createTask(new Task("Задача №8", "Описание задачи", "09:40 10.10.2023", 20));
+        Task task9 = manager.createTask(new Task("Задача №9", "Описание задачи", "11:00 10.10.2023", 30));
+        Task task10 = manager.createTask(new Task("Задача №10", "Описание задачи", "11:40 10.10.2023", 20));
+        Set<Task> tasks = new TreeSet<>(Comparator.comparing(Task::getStartTime));
+        tasks.add(task1);
+        tasks.add(task7);
+        tasks.add(task8);
+        tasks.add(task9);
+        tasks.add(task10);
+        assertEquals(tasks, manager.getPrioritet());
+    }
+
 }

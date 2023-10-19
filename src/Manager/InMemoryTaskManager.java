@@ -17,6 +17,8 @@ public class InMemoryTaskManager implements TaskManager {
     protected final HashMap<Integer, Epic> epicStorage;
     protected final HashMap<Integer, SubTask> subTaskStorage;
 
+    protected final Set<Task> prioritet = new TreeSet<>(Comparator.comparing(Task::getStartTime));
+
     protected final HistoryManager historyManager;
 
 
@@ -36,14 +38,13 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public Task createTask(Task task) {
-        if (!interSection(task)) {
-            if (task != null && !this.taskStorage.containsKey(task.getId())) {
+            if (task != null && !taskStorage.containsKey(task.getId()) && !interSection(task)) {
                 task.setId(generateId());
-                this.taskStorage.put(task.getId(), task);
+                taskStorage.put(task.getId(), task);
+                prioritet.add(task);
             } else {
                 return null;
             }
-        }
         return task;
     }
 
@@ -66,12 +67,16 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllTask() {
+        for (Task task : taskStorage.values()) {
+            prioritet.remove(task);
+        }
         taskStorage.forEach(((integer, task) -> historyManager.remove(task.getId())));
         this.taskStorage.clear();
     }
 
     @Override
     public void deleteTask(int id) {
+        prioritet.remove(taskStorage.get(id));
         historyManager.remove(id);
         taskStorage.remove(id);
     }
@@ -206,13 +211,14 @@ public class InMemoryTaskManager implements TaskManager {
     @Override
     public SubTask createSubTask(SubTask subTask) {
         if (!interSection(subTask)) {
-            if (subTask != null && !this.subTaskStorage.containsKey(subTask.getId())) {
+            if (subTask != null && !subTaskStorage.containsKey(subTask.getId()) && !interSection(subTask)) {
                 subTask.setId(generateId());
-                this.subTaskStorage.put(subTask.getId(), subTask);
+                subTaskStorage.put(subTask.getId(), subTask);
+                prioritet.add(subTask);
 
                 Epic epic = epicStorage.get(subTask.getEpicId());
                 if (epic != null) {
-                    this.epicStorage.get(subTask.getEpicId()).addSubtask(subTask);
+                    epicStorage.get(subTask.getEpicId()).addSubtask(subTask);
                     checkEpicStatus(subTask.getEpicId());
                     setEpicTime(subTask.getEpicId());
                 }
@@ -268,6 +274,7 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteSubTask(int id) {
+        prioritet.remove(subTaskStorage.get(id));
         historyManager.remove(id);
         SubTask subTask = subTaskStorage.get(id);
         Epic epic = epicStorage.get(subTask.getEpicId());
@@ -280,6 +287,9 @@ public class InMemoryTaskManager implements TaskManager {
 
     @Override
     public void deleteAllSubTask() {
+        for (SubTask subTask : subTaskStorage.values()) {
+            prioritet.remove(subTask);
+        }
         subTaskStorage.forEach((integer, subtask) -> historyManager.remove(subtask.getId()));
         this.subTaskStorage.clear();
 
@@ -313,29 +323,23 @@ public class InMemoryTaskManager implements TaskManager {
     }
 
     @Override
-    public boolean interSection(Task task) {
-        List<Task> prioritet = getPrioritizedTasks();
-        boolean isInterSection = false;
-        for (Task data : prioritet) {
-            if (task.getStartTime().isBefore(data.getStartTime()) && task.getStartTime().isAfter(data.getEndTime())) {
-                isInterSection = false;
-            }
-            else {
-                isInterSection = true;
+    public boolean interSection(Task newTask) {
+        for (Task oldTask : prioritet) {
+            if (newTask.getStartTime().isAfter(oldTask.getStartTime()) && newTask.getStartTime().isBefore(oldTask.getEndTime())
+                    || newTask.getStartTime().equals(oldTask.getStartTime())
+                    || newTask.getEndTime().isAfter(oldTask.getStartTime()) && newTask.getEndTime().isBefore(oldTask.getEndTime())
+                    || newTask.getEndTime().equals(oldTask.getEndTime())
+                    || oldTask.getStartTime().isAfter(newTask.getStartTime()) && oldTask.getStartTime().isBefore(newTask.getEndTime())
+                    || oldTask.getStartTime().isAfter(newTask.getStartTime()) && oldTask.getEndTime().isBefore(newTask.getEndTime()))
+            { return true;
             }
         }
-        return isInterSection;
+        return false;
     }
 
-    @Override
-    public List<Task> getPrioritizedTasks() {
-        List<Task> allTasks = new ArrayList<>();
-        allTasks.addAll(this.taskStorage.values());
-        allTasks.addAll(this.subTaskStorage.values());
-        allTasks.sort(Comparator.comparing(Task::getStartTime));
-        return allTasks;
+    public Set<Task> getPrioritet() {
+        return prioritet;
     }
-
 }
 
 

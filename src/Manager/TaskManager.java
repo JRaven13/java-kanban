@@ -6,6 +6,7 @@ import Tasks.Task;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 public interface TaskManager {
 
@@ -69,7 +70,7 @@ public interface TaskManager {
 
     void setGeneratedId(int generatedId);
 
-    List<Task> getPrioritizedTasks();
-
     boolean interSection(Task task);
+
+    Set<Task> getPrioritet();
 }

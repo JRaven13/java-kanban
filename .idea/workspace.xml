@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="Я медленный">
+    <list default="true" id="47fabfde-4927-4602-8a90-ed4364ed44ae" name="Changes" comment="Переделка">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Manager/InMemoryTaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/InMemoryTaskManager.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Manager/TaskManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Manager/TaskManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Test/Manager/TaskManagerTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Test/Manager/TaskManagerTest.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +78,7 @@
       <recent name="Tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.FileBackedTasksManagerTest">
+  <component name="RunManager" selected="JUnit.InMemoryTaskManagerTest.interSection">
     <configuration name="Main" type="Application" factoryName="Application" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="Main" />
       <module name="java-kanban" />
@@ -146,7 +148,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="InMemoryTaskManagerTest.getSubTaskForEpicNull" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="InMemoryTaskManagerTest.interSection" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="java-kanban" />
       <extension name="coverage">
         <pattern>
@@ -156,7 +158,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="Manager" />
       <option name="MAIN_CLASS_NAME" value="Manager.InMemoryTaskManagerTest" />
-      <option name="METHOD_NAME" value="getSubTaskForEpicNull" />
+      <option name="METHOD_NAME" value="interSection" />
       <option name="TEST_OBJECT" value="method" />
       <method v="2">
         <option name="Make" enabled="true" />
@@ -164,11 +166,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.FileBackedTasksManagerTest" />
-        <item itemvalue="JUnit.FileBackedTasksManagerTest.saveAndLoadEmptyHistoryTest" />
-        <item itemvalue="JUnit.FileBackedTasksManagerTest.saveAndLoadTest" />
-        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
-        <item itemvalue="JUnit.InMemoryTaskManagerTest" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest.interSection" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest.interSection" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest.interSection" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest.interSection" />
+        <item itemvalue="JUnit.InMemoryTaskManagerTest.interSection" />
       </list>
     </recent_temporary>
   </component>
@@ -224,7 +226,14 @@
       <option name="project" value="LOCAL" />
       <updated>1697616759410</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Переделка">
+      <created>1697710125447</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1697710125447</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -235,7 +244,8 @@
     <MESSAGE value="Я медленный =)" />
     <MESSAGE value="Я медленный =(" />
     <MESSAGE value="Я медленный" />
-    <option name="LAST_COMMIT_MESSAGE" value="Я медленный" />
+    <MESSAGE value="Переделка" />
+    <option name="LAST_COMMIT_MESSAGE" value="Переделка" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
